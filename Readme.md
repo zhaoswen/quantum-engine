@@ -3,16 +3,6 @@
 Simx Engine 是一个精简的执行引擎，主要应用于数据处理、用户操作封装、用户操作自动化等场景。它本身没有界面，是一个命令行（shell）工具，
 可以通过安装工具将其作为一个系统服务进行安装， 或注册为系统中蓝图文件的默认执行器；
 
-<!-- PROJECT SHIELDS -->
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<!-- PROJECT LOGO -->
 <br />
 
 <p align="center">
