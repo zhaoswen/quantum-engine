@@ -1,0 +1,65 @@
+[engine]
+#run_init_script = true
+run_init_flow = true
+# 运行插件的初始化方法，一般不建议关闭
+run_init_extensions_func = true
+# 允许插件加载配置文件
+allow_load_extension_config = true
+extensions_init_list = ["engine-handler", "engine_common"]
+auto_refresh_local_data = true
+ext_path = "ext"
+shell_log_level = "info"
+file_log_level = "none"
+
+missing_plugin_action = "warn"
+missing_default_handel_action = "warn"
+# 实例间通信方式
+# share-memory: 使用共享内存（速度快，占用资源少，可执行部分控制操作）
+# rustful: 使用rustful接口通信（宿主必须作为serve运行，可执行所有控制操作）
+# id-file: 通过实例的描述文件通信（速度很慢，根据文件交换互相信息，不能执行控制操作）
+instance_communication_type = "share-memory"
+
+# 蓝图多入口并行，如果蓝图有多个入口，并行执行，默认为true
+blueprint_multi_entry_parallel = true
+# 蓝图多下游并行，如果蓝图节点有多个下游，并行执行，默认为false
+blueprint_multi_downstream_parallel = false
+
+# 蓝图最大执行循环，防止各种原因引起的死循环
+# 此配置含义是，蓝图最多执行（ blueprint_max_loop * 蓝图节点数 ）次跳转，如果超过x次，则退出
+# 默认5，-1则不限制（非常不建议，特别是goto之类的功能很容易引起死循环）
+blueprint_max_loop_multiple = 5
+
+# 最大内存缓存容量（默认1GB）
+# 缓存蓝图文件到内存中，如果为0，则不缓存
+# 单位：B、KB、MB、GB、TB
+max_cache_size = "100MB"
+
+# 缓存权重依据
+# usage: 根据使用量总计（哪个流用的多，优先存储在内存中，目前仅实现这种方式）
+# usage-last: 优先缓存最近使用的（最近使用较多的）
+# size-s: 优先缓存小文件
+# size-l: 优先缓存大文件
+cache_weight_by = "usage"
+
+[net]
+rest_listener_port = 9899
+
+[env]
+python_path = "python3"
+enable_python_script = true
+enable_shell_script = true
+enable_batch_script = true
+enable_powershell_script = true
+enable_shell_script_in_mac = true
+enable_shell_script_in_linux = true
+
+[cron]
+# 是否开启
+enable = true
+# 是否多线程执行（每条任务都分出一个线程执行监听）
+multi_thread = true
+# cron 列表，注意windows下路径一定是双斜线，比如：
+# "1/10 * * * * * script C:\\Users\\Administrator\\Downloads\\siest.cmd"
+cron_list = [
+    "1/10 * * * * * script /Users/eyresimpson/Downloads/test.sh",
+]

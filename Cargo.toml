@@ -1,0 +1,22 @@
+[workspace]
+resolver = "2"
+
+members = [
+    # 共用部分，simx项目中的插件均引用此模块
+    "core",
+    # 引擎可执行文件编译
+    # 如果只需要引擎库，则无需编译此模块
+    "runner",
+    # 引擎库，编译为库文件，便于集成到其他程序中
+    # 如果不需要引擎库，则无需编译此模块
+    "library",
+    # 结构体，插件可以仅引用此模块
+    "share",
+]
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+opt-level = "s"
+strip = true

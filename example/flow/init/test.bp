@@ -1,0 +1,90 @@
+{
+  "version": "1",
+  "name": "测试流",
+  "update_date": "2024-10-18",
+  "requirements": [
+    {
+      "name": "engine",
+      "env_type": "Base",
+      "version": "1.0.0"
+    },
+    {
+      "name": "java",
+      "env_type": "Runtime",
+      "version": "1.8.0"
+    }
+  ],
+  "blueprint": {
+    "parallel_endpoints": false,
+    "parallel_routes": false,
+    "maximum_repetition": 30,
+    "endpoints": [
+      "1"
+    ],
+    "routes": {
+      "1": {
+        "name": "发起Http请求",
+        "handler": "simx-http.http.get",
+        "common": {},
+        "downstream": [
+          {
+            "expr": "1==1",
+            "target": "2"
+          }
+        ],
+        "redress_stream": [],
+        "attr": {
+          "url": "http://110.41.46.51:38004/process/task/count",
+          "header": {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "zcToken": "UAEsasaeVdjiDsgGVHNi1KYJbzd1z8sg"
+          },
+          "params": {},
+          "data": {},
+          "encoding": "utf-8",
+          "max_retry": "3",
+          "retry_interval": "1000",
+          "timeout": "10000",
+          "save_as": "json",
+          "var_name": "response"
+        }
+      },
+      "2": {
+        "name": "设置变量",
+        "handler": "simx.core.var.set",
+        "downstream": [
+          "5"
+        ],
+        "redress_stream": [],
+        "attr": {
+          "key": "aaa",
+          "val": "1"
+        }
+      },
+      "5": {
+        "name": "打印信息1",
+        "handler": "simx.core.debug.print",
+        "downstream": [
+          "6"
+        ],
+        "redress_stream": [],
+        "attr": {
+          "text": "hello world in println ${aaa}",
+          "level": "warn"
+        }
+      },
+      "6": {
+        "name": "代理访问",
+        "handler": "simx.core.agent.request",
+        "downstream": [],
+        "redress_stream": [],
+        "attr": {
+          "agent_id": "hello world in println ${aaa}",
+          "conf": {
+          }
+        }
+      }
+    }
+  }
+}
