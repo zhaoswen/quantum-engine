@@ -22,11 +22,11 @@ pub struct EngineConfig {
     #[serde(default = "default_engine_mode")]
     pub engine_mode: String,
 
-    // 在启动时运行默认脚本，默认为false
+    // 在启动时运行默认脚本，默认为true
     #[serde(default = "default_run_init_script")]
     pub run_init_script: bool,
 
-    // 在启动时运行默认流，默认为false
+    // 在启动时运行默认流，默认为true
     #[serde(default = "default_run_init_flow")]
     pub run_init_flow: bool,
 
@@ -123,11 +123,11 @@ fn default_engine_mode() -> String {
 }
 
 fn default_run_init_script() -> bool {
-    false
+    true
 }
 
 fn default_run_init_flow() -> bool {
-    false
+    true
 }
 
 fn default_auto_refresh_local_data() -> bool {

@@ -18,9 +18,9 @@ fn main() {
             // 设置公司名称
             .set("CompanyName", "NJ Labs")
             // 设置产品版本
-            .set("ProductVersion", "0.1.2")
+            .set("ProductVersion", "0.9.3")
             // 设置文件版本
-            .set("FileVersion", "0.1.2");
+            .set("FileVersion", "0.9.3");
         // 编译资源
         res.compile().expect("Failed to compile resources");
     }

@@ -18,7 +18,6 @@ pub async fn engine_init() -> Result<(), String> {
     // 系统引擎配置
     let engine_conf = get_simx_config().engine;
 
-
     // 检查工作环境（当前目录）
     match env_check() {
         Ok(_) => {

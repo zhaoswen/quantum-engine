@@ -19,7 +19,7 @@
     "parallel_routes": false,
     "maximum_repetition": 30,
     "endpoints": [
-      "1"
+      "2"
     ],
     "routes": {
       "1": {
