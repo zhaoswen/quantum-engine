@@ -58,35 +58,36 @@ pub async fn engine_init() -> Result<(), String> {
 // 比如当前系统中的脚本，流程等信息，这些信息会被加载到数据库中
 pub fn reload_local(mode: &str) -> Result<String, String> {
     let engine_conf = get_simx_config().engine;
-    // 这种写法虽然繁琐了点，但可以节省一小部分的内存...
+    let (ext_path, script_path, flow_path) = (
+        engine_conf.ext_path,
+        engine_conf.script_path,
+        engine_conf.flow_path
+    );
+
+    let check_path = |p: &String| Path::new(p.as_str()).exists();
+
     match mode {
-        "script" => {
-            let script_path = engine_conf.script_path;
-            reload_local_traverse_folder(Path::new(script_path.as_str()), "script");
-        }
-        "flow" => {
-            let flow_path = engine_conf.flow_path;
-            reload_local_traverse_folder(Path::new(flow_path.as_str()), "flow");
-        }
-        "ext" => {
-            let ext_path = engine_conf.ext_path;
-            reload_local_traverse_folder(Path::new(ext_path.as_str()), "ext");
+        "script" | "flow" | "ext" => {
+            let target_path = match mode {
+                "script" => &script_path,
+                "flow" => &flow_path,
+                "ext" => &ext_path,
+                _ => unreachable!()
+            };
+            if check_path(target_path) {
+                reload_local_traverse_folder(Path::new(target_path.as_str()), mode);
+            }
         }
         _ => {
-            let ext_path = engine_conf.ext_path;
-            let script_path = engine_conf.script_path;
-            let flow_path = engine_conf.flow_path;
-            // 加载脚本信息
-            reload_local_traverse_folder(Path::new(script_path.as_str()), "script");
-            // 加载流信息
-            reload_local_traverse_folder(Path::new(flow_path.as_str()), "flow");
-            // 加载插件信息
-            reload_local_traverse_folder(Path::new(ext_path.as_str()), "ext");
+            [("script", &script_path), 
+             ("flow", &flow_path), 
+             ("ext", &ext_path)]
+                .iter()
+                .filter(|(_, p)| check_path(p))
+                .for_each(|(t, p)| reload_local_traverse_folder(Path::new(p.as_str()), t));
         }
     }
 
-
-    // 返回成功消息
     Ok("Scan complete.".to_string())
 }
 
