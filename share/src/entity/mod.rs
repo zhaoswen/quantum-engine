@@ -5,3 +5,4 @@ pub mod config;
 pub mod exception;
 pub mod services;
 pub mod workspace;
+pub mod restful;

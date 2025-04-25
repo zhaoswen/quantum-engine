@@ -1,7 +1,7 @@
 use engine_common::engine::kernel::{clean, init};
 
 // 运行流程
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(improper_ctypes_definitions)]
 pub extern "C" fn run() -> Result<(), String> {
     let future = async {
@@ -14,7 +14,7 @@ pub extern "C" fn run() -> Result<(), String> {
 }
 
 // 运行监听（服务）
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(improper_ctypes_definitions)]
 pub extern "C" fn serve() -> Result<(), String> {
     let future = async {
