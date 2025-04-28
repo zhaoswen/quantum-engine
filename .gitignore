@@ -33,3 +33,4 @@ example/lib/agent-oa/simx-http.dylib
 example/ext/simx-http/simx_http.dylib
 /example/flow/init/local.bp
 /example/lib/nacos-client-2.4.3.jar
+/logs/*

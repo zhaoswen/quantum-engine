@@ -4,7 +4,7 @@ use std::env;
 #[tokio::main]
 async fn main() {    // 读取cron配置文件
     // 引擎运行前的准备和初始化动作
-    init();
+    init().await.expect("Engine init failed.");
     // 分析用户输入参数，如果没有输入参数，就代表默认的启动方式
     // 获取命令行参数
     let args: Vec<String> = env::args().collect();

@@ -7,3 +7,4 @@ pub mod common;
 pub mod thread;
 pub mod history;
 pub mod service;
+mod supervisor;

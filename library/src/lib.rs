@@ -5,7 +5,7 @@ use engine_common::engine::kernel::{clean, init};
 #[allow(improper_ctypes_definitions)]
 pub extern "C" fn run() -> Result<(), String> {
     let future = async {
-        init();
+        init().await.unwrap();
         engine_common::engine::kernel::run().await;
         clean();
     };
@@ -18,8 +18,8 @@ pub extern "C" fn run() -> Result<(), String> {
 #[allow(improper_ctypes_definitions)]
 pub extern "C" fn serve() -> Result<(), String> {
     let future = async {
-        init();
-        engine_common::engine::kernel::serve().await.unwrap();
+        init().await.unwrap();
+        // engine_common::engine::kernel::serve().await.unwrap();
         clean();
     };
     tokio::runtime::Runtime::new().unwrap().block_on(future);

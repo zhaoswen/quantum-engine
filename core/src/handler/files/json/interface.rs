@@ -63,7 +63,7 @@ fn write_as_json(node: Node) -> Result<(), NodeError> {
             Ok(())
         }
         Err(err) => {
-            return Err(NodeError::FileWriteError(err.to_string()))
+            Err(NodeError::FileWriteError(err.to_string()))
         }
     }
 }

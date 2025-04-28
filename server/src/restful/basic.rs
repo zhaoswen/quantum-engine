@@ -6,6 +6,11 @@ use axum::Router;
 pub async fn restful_serve() {
     // 构建监听路由
     let app = Router::new()
+        // 流程操作
+        // 根据蓝图路径运行
+        .route("/flow/run/bypath", post(handler::flow::run_bp_path))
+
+        // 引擎操作
         // 直接调用根目录视为测试
         .route("/engine/test", get(test))
         // 停止服务

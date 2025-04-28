@@ -3,18 +3,19 @@
 Simx Quantum Engine 是一个精简的执行引擎，主要应用于数据处理、用户操作封装、用户操作自动化等场景。它本身没有界面，是一个命令行（shell）工具，
 可以通过安装工具将其作为一个系统服务进行安装， 或注册为系统中蓝图文件的默认执行器；
 
+<!--suppress CheckImageSize -->
 <br />
 
 <p align="center">
   <a href="https://github.com/zhaoswen/simx-engine/">
-    <img src="runner/resource/SimxIcon.png" alt="Logo" width="80" height="80">
+    <img src="runner/resource/SimxIcon.png" alt="Logo" width="80px" height="80px">
   </a>
 
 <h3 align="center">Quantum 执行引擎</h3>
   <p align="center">
     适用于业务人员编码的解决方案
     <br />
-    <a href="http://pro.zhaosw.site/docs/engine/quick-start"><strong>探索本项目的文档 »</strong></a>
+    <a href="https://pro.zhaosw.site/docs/engine/quick-start"><strong>探索本项目的文档 »</strong></a>
     <br />
     <br />
     <a href="https://github.com/zhaoswen/simx-engine">设计器</a>

@@ -9,10 +9,10 @@ fn main() {
         res.set_icon("resource/SimxIcon.ico")
             // 设置内部名称
             .set("InternalName", "Quantum")
-            // 设置
-            .set("FileDescription", "Quantum Engine")
+            // 设置描述
+            .set("FileDescription", "Quantum Engine Server")
             // 设置产品名称
-            .set("ProductName", "Quantum")
+            .set("ProductName", "Quantum Server")
             // 设置版权信息
             .set("LegalCopyright", "Copyright © 2025 ZhaoShenWen")
             // 设置公司名称

@@ -1,7 +1,8 @@
 use crate::controller::interface::check_require;
 use crate::dispatch::common::redress_stream_dispatch;
 use crate::dispatch::general::dispatch_general;
-use crate::dispatch::r#loop::dispatch_loop;
+use crate::dispatch::logic::dispatch_loop::dispatch_loop;
+// use crate::dispatch::logic::dispatch_loop;
 use crate::dispatch::service::dispatch_service;
 use crate::exception::flow::flow_dispatch_err_handler;
 use crate::flow::resolver::interface::flow_resolver;
@@ -10,7 +11,7 @@ use crate::runtime::flow::{get_flow_runtime, set_flow_runtime};
 use crate::runtime::history::{history_persistent, log_history};
 use crate::tools::common::{get_current_time, get_timestamp, get_uuid};
 use engine_share::entity::common::HistoryLog;
-use engine_share::entity::exception::common::Status;
+use engine_share::entity::exception::common::NodeStatus;
 use engine_share::entity::exception::dispatch::DispatchErr;
 use engine_share::entity::exception::node::NodeError;
 use engine_share::entity::flow::blueprint::Blueprint;
@@ -184,7 +185,7 @@ pub async fn dispatch_nodes(
         node_uuid.clone(),
         node_handler.clone(),
         blueprint_id.clone(),
-        Status::Start,
+        NodeStatus::Start,
         "Node will be exec.".to_string(),
         data_logger.clone(),
     );
@@ -210,7 +211,7 @@ pub async fn dispatch_nodes(
             node_uuid.clone(),
             node_handler.clone(),
             blueprint_id.clone(),
-            Status::End,
+            NodeStatus::End,
             "Node exec successfully.".to_string(),
             data_logger,
         );
@@ -225,7 +226,7 @@ pub async fn dispatch_nodes(
                     node_uuid.clone(),
                     node_handler.clone(),
                     blueprint_id.clone(),
-                    Status::End,
+                    NodeStatus::End,
                     "Node exec successfully.".to_string(),
                     data_logger,
                 );
@@ -242,7 +243,7 @@ pub async fn dispatch_nodes(
                     node_uuid.clone(),
                     node_handler.clone(),
                     blueprint_id.clone(),
-                    Status::Fail,
+                    NodeStatus::Fail,
                     "The implicated compensation mechanism is triggered.".to_string(),
                     data_logger,
                 );
@@ -271,7 +272,7 @@ fn node_common_handle(
     node_id: String,
     handler: String,
     bp_id: String,
-    status: Status,
+    status: NodeStatus,
     message: String,
     data: Option<FlowData>,
 ) {

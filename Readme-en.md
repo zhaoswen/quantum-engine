@@ -47,7 +47,7 @@ A language that supports the FFI standard can be called or run as an executable 
 receive instructions.
 
 The engine requires a standard Simx Blueprint file (blueprint file) to function properly. Each BP file should represent
-a specific business, such as the backup service used to automatically backup the database should exist in a separate BP
+a specific business, such as the backup service used to automatically back up the database should exist in a separate BP
 file. In Simx, encapsulation does not require multiple layers.
 For example, the user can combine one or more processors (also known as grouping, packaging), and the combined processor
 group (also known as a component) can be used like any other normal processor.
@@ -61,7 +61,7 @@ limited to:
 - Linux (Ubuntu 20.04 / Centos 8 / Deepin 25)
 - macOS 15.3
 
-We support both X86_64 and ARM64 platforms, although our current availability is limited to MacOS M series chips (ARM),
+We support both X86_64 and ARM64 platforms, although our current availability is limited to macOS M series chips (ARM),
 PC Windows 11 (X86_64), PC Linux (X86_64), and Raspberry Pi 4B (X86_64).
 
 Our application is fully tested on ARM platforms.
