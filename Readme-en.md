@@ -1,91 +1,185 @@
-## Simx Quantum Engine
+<!--suppress CheckImageSize -->
+<br />
 
-**Introduction:**
-Simx Engine is a compact execution engine primarily utilized in data processing, user action encapsulation, and user
-action automation. It operates as a command-line (shell) tool and can be installed as a system service through the
-provided installation tool or registered as the default executer of blueprint files in the system.
+<p align="center">
+  <a href="https://github.com/zhaoswen/simx-engine/">
+    <img src="runner/resource/SimxIcon.png" alt="Logo" width="80px" height="80px">
+  </a>
+</p>
 
-**User Interface:**
-Simx Engine does not have an interface. Instead, it provides a command-line interface for user interaction.
+<h3 align="center">Simx Quantum Engine</h3>
+<p align="center">
+    A coding solution tailored for business users
+    <br />
+    <a href="https://pro.zhaosw.site/docs/engine/quick-start"><strong>Explore the project documentation »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/zhaoswen/simx-engine">Designer</a>
+     · 
+    <a href="https://github.com/zhaoswen/simx-engine/issues">Bugs</a>
+     · 
+    <a href="https://github.com/zhaoswen/simx-engine/issues">Feature Requests</a>
+</p>
 
-**Installation and Configuration:**
-Users can install Simx Engine as a system service using the provided installation tool. Alternatively, they can register
-it as the default executer of blueprint files in the system.
+## Table of Contents
 
-**Design and Development:**
-Simx Engine’s design philosophy revolves around modularity and extensibility. It aims to separate non-essential
-functions into independent plug-ins, allowing users to introduce and integrate these plug-ins into their systems as
-needed. The main project retains only the essential components, while the remaining functionalities are injected as
-plug-ins.
+- [Introduction](#introduction)
+- [Design](#design)
+- [Concepts](#concepts)
+- [Usage](#usage)
+- [Compatibility](#compatibility)
+- [Use Cases](#use-cases)
+- [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Cloning the Repository](#cloning-the-repository)
+- [Directory Structure](#directory-structure)
+- [Contributors](#contributors)
+    - [How to Contribute](#how-to-contribute)
+- [Version Control](#version-control)
+- [Authors](#authors)
+- [About](#about)
 
-**Performance Optimization:**
-Simx Engine prioritizes performance while simultaneously mitigating the complexities associated with intricate logic.
-This approach addresses potential challenges in the future.
+## Introduction
 
-**Basic Concepts:**
-**Processor (Handler):** A processor is an executable operation that can be a system, a shell/powershell/CMD/python
-script, or a method within a jar/DLL/so.
-**Blueprint:** A blueprint is a collection of business logic and a specific file. Upon instantiation by the engine, one
-or more flows can be formed to execute specific operations.
-**Flow:** A flow is a business logic composed of processors. It can contain multiple processors and one or more groups.
-A group can contain multiple processors, and the execution order of processors within a group is defined by the user.
-The execution order of processors within a group can also contain nested groups.
-**Components:** A component is a group of processors that can contain multiple processors. The order of execution of
-processors within a group is defined by the user, and the order of execution of processors within a group can contain
-nested groups.
-**Services (Commands):** A service can be simply viewed as a continuously running processor that listens for triggering
-streams or scripts (e.g., CRON service) or continuously provides some functionality (e.g., MySQL service).
-**Extensions:** Extensions are a collection of processors and services that currently enable users to provide extensions
-through the connection library. They will gradually support Melt Core access extensions.
+The Simx Engine is a streamlined execution engine mainly used for data processing, user operation encapsulation, and
+automation tasks. It has no GUI and operates as a command-line tool. It can be installed as a system service or set as
+the default executor for blueprint files.
+
+Users design workflows using [Simx Era Design](https://github.com/zhaoswen/simx-era-design) or Melt Studio, while this
+project serves as the core engine.
+
+## Design
+
+The design philosophy of Simx is to extract all non-essential features into plugins. These plugins can be added by users
+when needed, while the main project retains only the minimal necessary components. The engine focuses on performance and
+aims to simplify complex logic, which remains one of its future challenges.
+
+## Concepts
+
+- **Handler**: A handler is an executable operation. It can be built-in, a shell/powershell/cmd/python script, or a
+  method from a jar/dll/so file.
+- **Blueprint**: A blueprint is a collection of business logic and exists as a file. Once instantiated by the engine, it
+  generates one or more flows for execution.
+- **Flow**: A flow consists of handlers grouped into logical sequences. Flows can contain multiple nested groups with
+  customizable execution order.
+- **Component**: A component is a group of handlers that can also contain nested groups.
+- **Service**: A service is a continuously running handler, such as a CRON-based trigger or a persistent MySQL service.
+- **Extension**: An extension is a collection of handlers and services. Currently, extensions are supported through
+  linked libraries, with plans to support integration via Melt Core in the future.
 
 ## Usage
 
-The Simx engine offers various forms, depending on specific needs, can be packaged as a dynamic link library (dll, so,
-dylib, corresponding to the library package in the project) or executable file (corresponding to the runner package in
-the project). If provided as a dynamic link library, users can use any language that supports the FFI standard.
-A language that supports the FFI standard can be called or run as an executable file, which starts a thread listening to
-receive instructions.
+Simx Engine can be distributed either as a dynamic library (dll, so, dylib — under the `library` package) or as an
+executable binary (`runner` package). When provided as a dynamic library, it can be called from any language supporting
+FFI standards. As an executable, it runs a thread listening for incoming commands.
 
-The engine requires a standard Simx Blueprint file (blueprint file) to function properly. Each BP file should represent
-a specific business, such as the backup service used to automatically back up the database should exist in a separate BP
-file. In Simx, encapsulation does not require multiple layers.
-For example, the user can combine one or more processors (also known as grouping, packaging), and the combined processor
-group (also known as a component) can be used like any other normal processor.
+The engine requires standard Simx Blueprint files (BP files) to function. Each BP file should represent a specific
+business logic unit. For example, a database backup task should reside in a single BP file. Encapsulation doesn't
+require multiple files but can be achieved through grouping within the designer or IDE.
 
 ## Compatibility
 
-The development content is primarily conducted on Windows and macOS, and the platforms tested include, but are not
-limited to:
+Development was primarily conducted on Windows and macOS with testing across:
 
-- Windows 11, Windows Server 2022, Windows Server 2025
-- Linux (Ubuntu 20.04 / Centos 8 / Deepin 25)
-- macOS 15.3
+- **Windows**: Windows 11, Windows Server 2022, Windows Server 2025
+- **Linux**: Ubuntu 20.04 / CentOS 8 / Deepin 25
+- **macOS**: macOS 15.3
 
-We support both X86_64 and ARM64 platforms, although our current availability is limited to macOS M series chips (ARM),
-PC Windows 11 (X86_64), PC Linux (X86_64), and Raspberry Pi 4B (X86_64).
+We support both x86_64 and ARM64 platforms. Full testing has been conducted on:
 
-Our application is fully tested on ARM platforms.
+- Macos (M-series ARM chips)
+- PC Windows 11 (x86_64)
+- PC Linux (x86_64)
+- Raspberry Pi 4B (ARM)
 
-Should any issues arise during runtime, we welcome feedback via the issue tracker or community forums.
+If issues arise on other platforms, please report them via GitHub Issues or community discussions.
 
-## Application Scenario
+## Use Cases
 
-### Data Conversion (Transit)
+### Data Transformation (Intermediate Processing)
 
-Data can flow in, out, and out through designated start nodes (data source nodes) and end nodes (data destination
-nodes), similar to Nifi’s data transformation capabilities.
+Similar to Apache NiFi, data can be ingested, processed, and output using source and destination nodes.
 
-### Automated Operation
+### Automation
 
-You can accept external instructions or listen to specific signals (such as time, file or folder changes, RESTful,
-socket, etc.) through the system’s predefined functions or plugins, and execute corresponding processes and actions,
-akin to the functionality of RPA.
+Using pre-configured plugins or system handlers, external triggers (e.g., time events, file changes, RESTful APIs,
+sockets) can initiate workflows — akin to RPA tools.
 
-### Timed Tasks
+### Scheduled Tasks
 
-Programs can implement scheduled tasks based on CRON rules.
+Supports CRON-based scheduling for recurring tasks.
 
 ### Remote Management
 
-Allows real-time control of the server environment via scripts and processes, similar to some of the functionality of
-Jenkins.
+Allows real-time control over server environments via scripts and workflows, similar to Jenkins.
+
+## Getting Started
+
+### Prerequisites
+
+1. Rust 1.8+
+2. Dual-core CPU with at least 8GB RAM recommended
+
+### Cloning the Repository
+
+```sh
+git clone https://github.com/zhaoswen/simx-engine.git
+```
+
+### Directory Structure Example
+
+```
+filetree 
+├── ARCHITECTURE.md
+├── LICENSE.txt
+├── README.md
+├── /account/
+├── /bbs/
+├── /docs/
+│  ├── /rules/
+│  │  ├── backend.txt
+│  │  └── frontend.txt
+├── manage.py
+├── /oa/
+├── /static/
+├── /templates/
+├── useless.md
+└── /util/
+```
+
+### Contributors
+
+Please refer to **CONTRIBUTING.md** for a list of contributors.
+
+#### How to Contribute
+
+Thank you for your interest! Contributions will be accepted starting from version 2025.2 (Summer Edition).
+
+1. Fork the Project
+2. Create a Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Version Control
+
+This project uses Git for version management and is hosted on GitHub.
+
+## About
+
+### Authors
+
+Noah Jones
+
+*You can find additional developers in the contributor list.*
+
+### License
+
+The project is licensed under the [MIT License](https://github.com/zhaoswen/simx-engine/blob/master/LICENSE).
+
+### Related Projects
+
+- [Simx Engine](https://github.com/zhaoswen/simx-engine)
+- [Simx Engine Extension](https://github.com/zhaoswen/simx-engine-extension)
+- [Simx Era Design](https://github.com/zhaoswen/simx-era-design)
+- [Rust Programming Language](https://www.rust-lang.org/)
