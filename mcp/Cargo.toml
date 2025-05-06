@@ -1,0 +1,9 @@
+[package]
+name = "mcp"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# MCP SDK
+rmcp = { version = "0.1", features = ["server", "transport-sse-server", "transport-io", "transport-child-process"] }
+tokio = { version = "1.41.0", features = ["full"] }

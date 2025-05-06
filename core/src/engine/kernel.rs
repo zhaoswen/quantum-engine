@@ -6,36 +6,9 @@ use crate::flow::interface::exec_flow;
 use crate::logger::interface::{fail, info};
 use crate::runtime::config::get_simx_config;
 use crate::runtime::extension::get_all_extension_info;
-use engine_share::entity::exception::engine::EngineErr;
 use std::path::Path;
 use std::{env, fs};
 use tklog::{Format, LOG};
-
-/// # 默认服务
-///
-/// > 一般用来启动工作空间（也就是Era 设计器中的项目）
-///
-/// 此方法会正常初始化系统，并扫描运行目录：
-/// 1. 发现配置文件，正常加载配置文件
-/// 2. 发现插件，会正常加载插件
-/// 3. 寻找服务并加载
-/// 4. 寻找初始化的脚本和蓝图并主动执行
-/// 5. 检查是否有cron配置，如果有，就执行（多线程）
-pub async fn serve() -> Result<(), EngineErr> {
-    // 获取simx基础配置
-    let simx_config = get_simx_config();
-
-    // 检查配置中是否需要阻塞进程
-    // 注意，如果不阻塞，cron服务可能失效
-    if simx_config.engine.run_strategy != "once" {
-        info("Simx engine running, Press Ctrl + C Exit.");
-        // 等待用户 ctrl + c 结束进程
-        tokio::select! {
-            _ = tokio::signal::ctrl_c() => {}
-        }
-    }
-    Ok(())
-}
 
 /// # 运行流
 ///

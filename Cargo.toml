@@ -10,6 +10,8 @@ members = [
     # 引擎可执行 Restful 服务
     "server",
     # 引擎库，编译为库文件，便于集成到其他程序中
+    # Quantum MCP Server 实现
+    "mcp",
     # 如果不需要引擎库，则无需编译此模块
     "library",
     # 结构体，插件可以仅引用此模块

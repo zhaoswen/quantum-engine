@@ -1,4 +1,4 @@
-use engine_common::engine::kernel::{clean, init, run, serve};
+use engine_common::engine::kernel::{clean, init, run};
 use std::env;
 
 #[tokio::main]
@@ -13,7 +13,7 @@ async fn main() {    // 读取cron配置文件
         // 解析输入参数
         match args[1].as_str() {
             "run" => run().await,
-            _ => serve().await.unwrap(),
+            _ => println!("No params"),
         }
         return;
     }
