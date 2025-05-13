@@ -6,6 +6,8 @@ build = "build.rs"
 
 
 [dependencies]
+# 共享
+engine-share = { path = "../share" }
 # 引擎核心
 engine-common = { path = "../core" }
 # 异步运行时库

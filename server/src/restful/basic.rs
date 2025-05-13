@@ -14,6 +14,7 @@ pub async fn restful_serve() {
         .route("/engine/stop", post(handler::engine::stop))
         // 执行指定蓝图（本地路径或直接蓝图文件）
         // 执行特定处理器
+        .route("/engine/exec", post(handler::engine::run_exec))
         // 根据蓝图路径运行
         .route("/flow/run/{path}", get(handler::flow::run_bp_path));
     // .route("/flow/run/bypath", post(handler::flow::run_bp_path));
